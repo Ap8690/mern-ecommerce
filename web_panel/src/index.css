@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *,
 ::after,
 ::before {
@@ -55,9 +59,9 @@ html {
   --borderRadius: 0.25rem;
   --letterSpacing: 1px;
   --transition: 0.3s ease-in-out all;
-  --max-width: 1120px;
+  --max-width: 100%;
   --fixed-width: 600px;
-  --fluid-width: 90vw;
+  --fluid-width: 100vw;
   /* box shadow*/
   --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   --shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
@@ -870,12 +874,12 @@ Cart
 
 .slick-prev:before {
   color: var(--grey-900) !important;
-  font-size: 30px !important;
+  font-size: 50px !important;
 }
 
 .slick-next:before {
   color: var(--grey-900) !important;
-  font-size: 30px !important;
+  font-size: 50px !important;
 }
 
 .slick-slide{
