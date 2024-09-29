@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 require('mongoose-double')(mongoose);
 var SchemaTypes = mongoose.Schema.Types;
 
-
 const ProductSchema = new mongoose.Schema(
 		{
 			title:{type:String, required:true},

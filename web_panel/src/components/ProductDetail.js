@@ -4,7 +4,7 @@ import {addToCart} from '../redux/actions/cartActions';
 
 const Products = (props) => {
 	const productDetails = props.details.data;
-	const {image,title,price,description} = productDetails;
+	const {_id,price,title, meta: {image},description} = productDetails;
 	const [itemQty, setItemQty] = useState(1);
 	const dispatch = useDispatch();
 	const addToCartHandle = (product) => {
