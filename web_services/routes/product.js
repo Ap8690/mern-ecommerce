@@ -9,13 +9,11 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
 
   try {
     const savedProduct = await newProduct.save()
-    res
-      .status(200)
-      .json({
-        status: 1,
-        message: "Product added successfully",
-        data: [savedProduct],
-      })
+    res.status(200).json({
+      status: 1,
+      message: "Product added successfully",
+      data: [savedProduct],
+    })
   } catch (err) {
     res.status(500).json({status: 0, message: err.message})
   }
@@ -35,13 +33,11 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
     if (updatedProduct == null) {
       res.status(200).json({success: 0, message: "No Data Found!"})
     } else {
-      res
-        .status(200)
-        .json({
-          success: 1,
-          message: "Product updated successfully",
-          data: [updatedProduct],
-        })
+      res.status(200).json({
+        success: 1,
+        message: "Product updated successfully",
+        data: [updatedProduct],
+      })
     }
   } catch (err) {
     res.status(500).json({status: 0, message: err.message})
@@ -149,6 +145,20 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
         .json({success: 1, message: "Product deleted successfully"})
     }
   } catch (err) {
+    res.status(500).json({status: 0, message: err.message})
+  }
+})
+
+router.get("/collection", async(req, res) => {
+  try {
+    const {collections, limit, skip} = req.query;
+    const products = await Product.find({
+      $all: collections
+    }).skip(skip).limit(limit)
+    res
+    .status(200)
+    .json({success: 1, products})
+  } catch (error) {
     res.status(500).json({status: 0, message: err.message})
   }
 })

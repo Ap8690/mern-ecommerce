@@ -10,6 +10,7 @@ const {userLogin: { userInfo }} = store.getState();
 axios.defaults.baseURL = process.env.REACT_APP_API_BASEURL;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
+console.log(userInfo)
 if(typeof userInfo !== 'undefined' && userInfo !== null){
 	const token = userInfo.token;
 	if(typeof token != undefined && token){
