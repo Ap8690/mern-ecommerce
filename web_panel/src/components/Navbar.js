@@ -1,54 +1,73 @@
-import React, {useEffect, useState} from "react"
-import {useDispatch, useSelector} from "react-redux"
-import {NavLink} from "react-router-dom"
-import logo from "../images/logo.svg"
-import {showCart} from "../redux/actions/cartActions"
-import {logout} from "../redux/actions/userActions"
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
+import logo from "../images/logo.svg";
+import {showCart} from "../redux/actions/cartActions";
+import {logout} from "../redux/actions/userActions";
 
 const NavBar = () => {
-  const dispatch = useDispatch()
-  const showCartStatus = useSelector(state => state.cart.showCart)
-  const cartItems = useSelector(state => state.cart.cartItems)
-  const userInfo = useSelector(state => state.userPanelLogin.userInfo)
-  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false)
-  const [toggleSearch, setToggleSearch] = useState(false)
-  let isLoggedin = false
-  let userName = ""
+  const dispatch = useDispatch();
+  const showCartStatus = useSelector(state => state.cart.showCart);
+  const cartItems = useSelector(state => state.cart.cartItems);
+  const userInfo = useSelector(state => state.userPanelLogin.userInfo);
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
+  const [toggleSearch, setToggleSearch] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  let isLoggedin = false;
+  let userName = "";
 
   if (typeof userInfo !== "undefined" && Object.keys(userInfo).length !== 0) {
-    userName = userInfo.data[0].name
-    isLoggedin = true
+    userName = userInfo.data[0].name;
+    isLoggedin = true;
   }
 
   let cartItemsCount = cartItems.reduce((total, item) => {
-    return total + item.qty
-  }, 0)
+    return total + item.qty;
+  }, 0);
 
   const toggleCart = () => {
-    dispatch(showCart(!showCartStatus))
-  }
+    dispatch(showCart(!showCartStatus));
+  };
 
   const logoutHandler = () => {
-    dispatch(logout())
-  }
+    dispatch(logout());
+  };
 
   const toggleSidePanel = () => {
-    setIsSidePanelOpen(!isSidePanelOpen)
-  }
+    setIsSidePanelOpen(!isSidePanelOpen);
+  };
 
   const closeSidePanel = () => {
-    setIsSidePanelOpen(false)
-  }
+    setIsSidePanelOpen(false);
+  };
 
   const toggleSearchButton = () => {
-    setToggleSearch(!toggleSearch)
-  }
+    setToggleSearch(!toggleSearch);
+  };
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
-    <div className="sticky top-0 z-50 bg-white border-b p-4 shadow-md">
-      <div className="flex justify-between items-center bg-opacity-50">
+    <div
+      className={`sticky top-0 z-50 p-4 shadow-md transition-all duration-300 ${
+        isScrolled ? 'bg-white bg-opacity-90' : 'bg-white bg-opacity-30'
+      } backdrop-blur-sm border-b`}
+    >
+      <div className="flex justify-between items-center">
         <div className={`lg:block md:hidden ${toggleSearch ? "hidden" : ""}`}>
           <NavLink to="/">
             <img src={logo} alt="logo" className="w-24" />
@@ -134,11 +153,9 @@ const NavBar = () => {
                 className="bg-white border shadow-md rounded-md p-2 focus:outline-none w-full md:w-1/2"
                 name="name"
                 placeholder="Search items ..."
-                // onChange={handleChange}
-                // value={formState.values.name || ""}
-              />{" "}
-              <div className=" shadow-md border p-2 rounded-md bg-[#a9a8a8] text-white" onClick={toggleSearchButton}>
-              <i class="fa fa-times" aria-hidden="true"></i>
+              />
+              <div className="shadow-md border p-2 rounded-md bg-[#a9a8a8] text-white" onClick={toggleSearchButton}>
+                <i className="fa fa-times" aria-hidden="true"></i>
               </div>
             </div>
           )}
@@ -150,11 +167,12 @@ const NavBar = () => {
               <i className="fas fa-search"></i>
             </div>
           )}
+
           {/* Cart and Login/Profile Section */}
           <div>
             {!isLoggedin ? (
               <NavLink to="/login" className="text-gray-700">
-                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                <i className="fa fa-user-circle" aria-hidden="true"></i>
               </NavLink>
             ) : (
               <div className="relative inline-block text-left">
@@ -211,7 +229,6 @@ const NavBar = () => {
       {isSidePanelOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden">
           <div className="fixed inset-y-0 right-0 w-64 bg-[#f0f0ed] shadow-lg z-50">
-            {/* Close button */}
             <div className="flex justify-end px-4">
               <button
                 onClick={closeSidePanel}
@@ -292,7 +309,7 @@ const NavBar = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
