@@ -1,21 +1,18 @@
-import React from 'react';
-import NavBar from '../components/Navbar';
-import Slider from '../components/Slider';
-import FeaturedProducts from '../components/FeaturedProducts';
-import Sidebar from '../components/Sidebar';
-import Cart from '../components/Cart';
+import React from "react"
+import NavBar from "../components/Navbar"
+import HomePage from "../components/Homepage"
+import Cart from "../components/Cart"
+import Footer from "../components/Footer"
 
 const Home = () => {
-	return(
-		<>
-		 	<NavBar/>
-		 	<Slider/>
-		 	<FeaturedProducts/>
-		 	<Sidebar/>
-		 	<Cart/>
-		</>
-		)
+  return (
+    <div className="bg-[#eeeeee]">
+      <NavBar />
+      <HomePage />
+      <Cart />
+      <Footer />
+    </div>
+  )
 }
 
-
-export default Home;
+export default Home

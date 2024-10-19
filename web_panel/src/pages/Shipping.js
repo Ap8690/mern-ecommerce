@@ -1,11 +1,8 @@
 import React,{useState,useEffect} from 'react';
 import {useDispatch,useSelector} from 'react-redux';
 import NavBar from '../components/Navbar';
-import PageHeading from '../components/PageHeading';
-import ProductDetail from '../components/ProductDetail';
 import Sidebar from '../components/Sidebar';
 import Cart from '../components/Cart';
-import {Link} from 'react-router-dom';
 import {showCart, saveShippingAddress} from '../redux/actions/cartActions';
 
 const ShippingPage = ({history}) => {
@@ -59,7 +56,6 @@ const ShippingPage = ({history}) => {
 	return(
 		<>
 		 	<NavBar/>	
-		 	<PageHeading title="Home / Shipping"/>
 		 	<section className="section section-center">
 		        <div className="container h-100">
 			        <div className="d-flex justify-content-center h-100">

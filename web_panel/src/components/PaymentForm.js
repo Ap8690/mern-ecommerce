@@ -1,15 +1,12 @@
 import React,{useState,useEffect} from 'react';
 import {useDispatch,useSelector} from 'react-redux';
 import NavBar from '../components/Navbar';
-import PageHeading from '../components/PageHeading';
-import ProductDetail from '../components/ProductDetail';
 import Sidebar from '../components/Sidebar';
 import Cart from '../components/Cart';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {showCart} from '../redux/actions/cartActions';
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { createOrder, processPayment } from '../redux/actions/orderActions';
-import axios from 'axios';
 
 
 const PaymentForm = () => {
@@ -173,7 +170,6 @@ const PaymentForm = () => {
   return(
     <>
       <NavBar/> 
-      <PageHeading title="Home / Payment"/>
       <section className="section section-center">
             <div className="container h-100">
               <div className="d-flex justify-content-center h-100">
